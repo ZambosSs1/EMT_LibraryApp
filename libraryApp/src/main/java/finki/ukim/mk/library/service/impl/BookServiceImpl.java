@@ -1,9 +1,12 @@
 package finki.ukim.mk.library.service.impl;
 
+import finki.ukim.mk.library.model.Author;
 import finki.ukim.mk.library.model.Book;
-import finki.ukim.mk.library.model.User;
 import finki.ukim.mk.library.model.dto.BookDto;
 import finki.ukim.mk.library.model.enumerations.BookCategory;
+import finki.ukim.mk.library.model.exceptions.AuthorNotFoundException;
+import finki.ukim.mk.library.model.exceptions.BookNotFoundException;
+import finki.ukim.mk.library.repository.AuthorRepository;
 import finki.ukim.mk.library.repository.BookRepository;
 import finki.ukim.mk.library.service.BookService;
 import org.springframework.stereotype.Service;
@@ -15,9 +18,11 @@ import java.util.Optional;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
 
-    public BookServiceImpl(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
     }
 
     @Override
@@ -31,20 +36,46 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<Book> findByName(String name) {
-        return this.bookRepository.findByName(name);
+    public void markById(Long id) {
+        if(this.findById(id).isPresent()){
+            this.findById(id).get().decreaseCopies();
+        }
+        throw new BookNotFoundException(id);
+
     }
 
-    //TODO
     @Override
     public Optional<Book> save(BookDto bookDto) {
-        return Optional.empty();
+        Author author = this.authorRepository.findById(bookDto.getAuthor())
+                .orElseThrow(() -> new AuthorNotFoundException(bookDto.getAuthor()));
+        Book newBook = new Book(bookDto.getName(), bookDto.getCategory(), author,bookDto.getAvailableCopies());
+
+        return Optional.of(this.bookRepository.save(newBook));
     }
 
-    //TODO
     @Override
-    public Optional<Book> edit(Long id, String name, BookCategory category, User author, int availableCopies) {
-        return Optional.empty();
+    public Optional<Book> save(String name, BookCategory category, Long authorId, int availableCopies) {
+        if (this.authorRepository.findById(authorId).isEmpty()){
+            throw new AuthorNotFoundException(authorId);
+        }
+        Author author = this.authorRepository.findById(authorId).get();
+        Book newBook = new Book(name, category, author, availableCopies);
+        return Optional.of(this.bookRepository.save(newBook));
+    }
+
+    @Override
+    public Optional<Book> edit(Long id, BookDto bookDto) {
+        Book book = this.bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+
+        book.setName(bookDto.getName());
+        book.setCategory(bookDto.getCategory());
+        book.setAvailableCopies(bookDto.getAvailableCopies());
+
+        Author author = this.authorRepository.findById(bookDto.getAuthor())
+                .orElseThrow(() -> new AuthorNotFoundException(bookDto.getAuthor()));
+        book.setAuthor(author);
+
+        return Optional.of(this.bookRepository.save(book));
     }
 
     @Override

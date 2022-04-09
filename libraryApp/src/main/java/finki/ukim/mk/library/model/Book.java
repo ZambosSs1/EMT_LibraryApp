@@ -18,16 +18,21 @@ public class Book {
     @Enumerated(value = EnumType.STRING)
     private BookCategory category;
 
-    private String author;
+    @ManyToOne
+    private Author author;
 
     private int availableCopies;
 
     public Book() {}
 
-    public Book(String name, BookCategory category, String author, int availableCopies) {
+    public Book(String name, BookCategory category, Author author, int availableCopies) {
         this.name = name;
         this.category = category;
         this.author = author;
         this.availableCopies = availableCopies;
+    }
+
+    public void decreaseCopies(){
+        this.availableCopies--;
     }
 }

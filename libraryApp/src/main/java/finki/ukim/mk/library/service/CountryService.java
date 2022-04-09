@@ -9,5 +9,6 @@ public interface CountryService {
     List<Country> findAll();
     Optional<Country> findById(Long id);
     List<Country> findByContinent(String continent);
+    Country save(String name, String continent);
 
 }

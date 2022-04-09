@@ -13,11 +13,13 @@ public interface BookService{
 
     Optional<Book> findById(Long id);
 
-    Optional<Book> findByName(String name);
+    void markById(Long id);
 
     Optional<Book> save (BookDto bookDto);
 
-    Optional<Book> edit (Long id, String name, BookCategory category, User author, int availableCopies);
+    Optional<Book> save (String name, BookCategory category, Long authorId, int availableCopies);
+
+    Optional<Book> edit (Long id, BookDto bookDto);
 
     void deleteById(Long id);
 

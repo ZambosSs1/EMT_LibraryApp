@@ -31,4 +31,10 @@ public class CountryServiceImpl implements CountryService {
     public List<Country> findByContinent(String continent) {
         return this.countryRepository.findAllByContinent(continent);
     }
+
+    @Override
+    public Country save(String name, String continent) {
+        Country newCountry = new Country(name, continent);
+        return this.countryRepository.save(newCountry);
+    }
 }

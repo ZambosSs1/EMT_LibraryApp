@@ -1,30 +1,25 @@
-package finki.ukim.mk.library.model;
+package finki.ukim.mk.library.model.dto;
 
 import finki.ukim.mk.library.model.enumerations.BookCategory;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Data
-@Entity
-public class Book {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class BookDto {
 
     private String name;
 
-    @Enumerated(value = EnumType.STRING)
     private BookCategory category;
 
     private String author;
 
     private int availableCopies;
 
-    public Book() {}
+    public BookDto() {}
 
-    public Book(String name, BookCategory category, String author, int availableCopies) {
+    public BookDto(String name, BookCategory category, String author, int availableCopies) {
         this.name = name;
         this.category = category;
         this.author = author;

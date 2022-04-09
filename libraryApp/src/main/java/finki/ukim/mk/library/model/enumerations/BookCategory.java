@@ -2,7 +2,7 @@ package finki.ukim.mk.library.model.enumerations;
 
 public enum BookCategory {
     NOVEL,
-    THRILER,
+    THRILLER,
     HISTORY,
     FANTASY,
     BIOGRAPHY,

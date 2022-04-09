@@ -2,6 +2,7 @@ package finki.ukim.mk.library.service.impl;
 
 import finki.ukim.mk.library.model.Book;
 import finki.ukim.mk.library.model.User;
+import finki.ukim.mk.library.model.dto.BookDto;
 import finki.ukim.mk.library.model.enumerations.BookCategory;
 import finki.ukim.mk.library.repository.BookRepository;
 import finki.ukim.mk.library.service.BookService;
@@ -36,7 +37,7 @@ public class BookServiceImpl implements BookService {
 
     //TODO
     @Override
-    public Optional<Book> save(String name, BookCategory category, User author, int availableCopies) {
+    public Optional<Book> save(BookDto bookDto) {
         return Optional.empty();
     }
 

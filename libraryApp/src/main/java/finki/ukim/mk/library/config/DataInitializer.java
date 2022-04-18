@@ -1,5 +1,7 @@
 package finki.ukim.mk.library.config;
 
+import finki.ukim.mk.library.model.enumerations.BookCategory;
+import finki.ukim.mk.library.model.enumerations.Role;
 import finki.ukim.mk.library.service.AuthorService;
 import finki.ukim.mk.library.service.BookService;
 import finki.ukim.mk.library.service.CountryService;
@@ -25,7 +27,7 @@ public class DataInitializer {
 
     @PostConstruct
     public void initData() {
-        this.userService
+        this.userService.register("admin", "AdminName", "AdminSurname", "admin", Role.ROLE_LIBRARIAN);
 
         this.countryService.save("Serbia", "Europe");
         this.countryService.save("Macedonia", "Europe");
@@ -40,6 +42,8 @@ public class DataInitializer {
         this.authorService.save("Steven", "King", this.countryService.findById(5L).get());
         this.authorService.save("Sebastian", "Fizcek", this.countryService.findById(6L).get());
         this.authorService.save("Grigor", "Prlicev", this.countryService.findById(2L).get());
+
+        this.bookService.save("Midnight Murders", BookCategory.THRILLER, 2L, 15);
 
     }
 }

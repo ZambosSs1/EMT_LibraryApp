@@ -37,11 +37,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void markById(Long id) {
-        if(this.findById(id).isPresent()){
-            this.findById(id).get().decreaseCopies();
-        }
-        throw new BookNotFoundException(id);
+        Book book = this.bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+        int newAvailableCopies = book.getAvailableCopies() - 1;
+        book.setAvailableCopies(newAvailableCopies);
 
+        this.bookRepository.save(book);
     }
 
     @Override

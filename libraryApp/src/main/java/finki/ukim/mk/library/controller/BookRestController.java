@@ -10,7 +10,7 @@ import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping({"/", "/books"})
+@RequestMapping("/books")
 public class BookRestController {
 
     private final BookService bookService;
@@ -38,7 +38,7 @@ public class BookRestController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/edit/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity <Book> edit (@PathVariable Long id, @RequestBody BookDto bookDto){
         return this.bookService.edit(id, bookDto)
                 .map(book -> ResponseEntity.ok().body(book))

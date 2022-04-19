@@ -4,12 +4,15 @@ import finki.ukim.mk.library.model.Book;
 import finki.ukim.mk.library.model.User;
 import finki.ukim.mk.library.model.dto.BookDto;
 import finki.ukim.mk.library.model.enumerations.BookCategory;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.*;
 
 public interface BookService{
 
     List<Book> findAll();
+
+    Page<Book> findAllWithPagination(Pageable pageable);
 
     Optional<Book> findById(Long id);
 

@@ -6,6 +6,7 @@ import finki.ukim.mk.library.model.exceptions.BookNotFoundException;
 import finki.ukim.mk.library.service.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
 import java.util.*;
 
 @RestController
@@ -22,6 +23,11 @@ public class BookRestController {
     @GetMapping
     public List<Book> findAll(){
         return this.bookService.findAll();
+    }
+
+    @GetMapping("/pagination")
+    public List<Book> findAllWithPagination(Pageable pageable){
+        return this.bookService.findAllWithPagination(pageable).getContent();
     }
 
     @GetMapping("/{id}")

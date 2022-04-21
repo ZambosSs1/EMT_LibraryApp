@@ -15,8 +15,6 @@ class Books extends Component {
     }
 
     render() {
-
-
         const offset = this.state.size * this.state.page;
         const nextPageOffset = offset + this.state.size;
         const pageCount = Math.ceil(this.props.books.length / this.state.size);

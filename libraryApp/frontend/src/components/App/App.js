@@ -6,7 +6,6 @@ import {
     BrowserRouter as Router,
     Route,
     Routes,
-    Navigate
 } from "react-router-dom";
 import Books from '../Books/List/books';
 import Categories from '../Categories/categories';
@@ -47,6 +46,10 @@ class App extends Component{
                                                                 onEdit={this.getBook}
                                                                 onMark={this.markBook}/>}/>
                         <Route path={"/categories"} element={<Categories categories = {this.state.categories}/>}/>
+                        <Route path={"/"} element={ <Books books={this.state.books}
+                                                                onDelete={this.deleteBook}
+                                                                onEdit={this.getBook}
+                                                                onMark={this.markBook}/>}/>
                     </Routes>
                 </div>
             </main>

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://emt-libraryapp-frontend.herokuapp.com/"})
 @RequestMapping("/categories")
 public class BookCategoriesRestController {
 

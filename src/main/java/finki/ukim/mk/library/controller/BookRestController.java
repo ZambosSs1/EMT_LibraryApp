@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://emt-libraryapp-frontend.herokuapp.com/"})
 @RequestMapping("/books")
 public class BookRestController {
 

@@ -97,7 +97,7 @@ class App extends Component{
     }
 
     addBook = (name, category, author, availableCopies) => {
-      libraryService.addProduct(name, category, author, availableCopies)
+      libraryService.addBook(name, category, author, availableCopies)
           .then(() => {
               this.loadBooks();
           });
